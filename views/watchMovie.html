@@ -1,0 +1,25 @@
+
+<div ng-controller="watchMovieCtrl" ng-init="movie.initMovieData();" class="container">
+	<h3>《{{movie.p}}》</h3>
+	<div>
+		<div class="col-md-12">
+			<iframe height=498 width="100%" src="{{movie.resourceUrl}}" frameborder=0 allowfullscreen></iframe>
+		</div>		
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" ng-cloak>{{movie.data.title}}</div>
+				<div class="panel-body">
+					<div class="list-group">
+					    <a href="##" class="list-group-item active" ng-cloak>{{movie.data.country}}</a>
+						<a href="##" class="list-group-item list-group-item-success" ng-cloak>{{movie.data.language}}</a>
+						<a href="##" class="list-group-item list-group-item-info" ng-cloak>{{movie.data.doctor}}</a>
+						<a href="##" class="list-group-item list-group-item-warning" ng-cloak>{{movie.data.summary}}</a>
+						<a href="##" class="list-group-item list-group-item-danger" ng-cloak>{{movie.data.year}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+</div>

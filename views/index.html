@@ -1,0 +1,29 @@
+<div ng-controller="indexInitCtrl" ng-init="Init.initData();">
+	<div id="container" class="container">
+		<div class="hero-unit">
+			<h1>欢迎来到 Microblog</h1>
+			<p>Microblog 是一个基于 Node.js 的微博系统。</p>
+			<p ng-hide="rootCtrlScope.username">
+				<a class="btn btn-primary btn-large" ng-click="openn();">登录</a>
+				<a class="btn btn-large" href="#/Welcome/Reg">立即注册</a>
+			</p>
+		</div>
+	</div>
+	<div class="container">
+	    <div class="row">
+			<div class="col-md-4" ng-repeat="item in Init.moviesData" ng-cloak>
+				<a href="#/Welcome/{{item.title}}" class="thumbnail">
+					<img ng-src="{{item.poster}}" style="height: 180px; width: 100%; display: block;" alt="">
+				</a>
+				<div class="caption">
+					<h3>{{item.title}}</h3>
+					<p>Bootstrap框架是一个优秀的前端框，就算您是一位后端程序员或者你是一位不懂设计的前端人员，你也能依赖于Bootstrap制作做优美的网站...</p>
+					<p>
+						<a href="#/WatchMovie/{{item.title}}" class="btn btn-primary">开始观看</a>
+						<a  class="btn btn-info" ng-click="updateMovie(item.title);">资料修改</a>
+					</p>
+				</div>  
+			</div>
+		</div>
+	</div>
+</div>

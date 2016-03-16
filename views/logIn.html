@@ -1,0 +1,24 @@
+<div>
+    <div class="modal-header" >
+        <h3 class="modal-title" ng-cloak>{{logIn.Title}} <small ng-cloak>{{logIn.smallTitle}}</small></h3>
+    </div>
+    <div class="modal-body" ng-hide="logIn.isLoggin">
+        <form  role="form" name="logInForm">
+            <div class="form-group">
+            <input type="text" placeholder="请输入您的用户名" class="form-control" ng-model="logIn.username" tooltip-placement="top" uib-tooltip="Sorry..该用户不存在 : (" tooltip-is-open="logIn.showTips" tooltip-trigger="none" check-log-in-name required></div>
+                <input type="password" placeholder="请输入您的密码"  class="form-control" ng-model="logIn.password"  tooltip-placement="bottom" uib-tooltip="Sorry..该密码错误" tooltip-is-open="logIn.showTips2" tooltip-trigger="none" check-log-in-password required>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" ng-hide="logIn.isLoggin">
+        <button class="btn btn-primary" type="button" ng-click="ok();" ng-disabled="logInForm.$invalid">OK</button>
+        <button class="btn btn-primary" type="button"  ng-click="ok();" ng-disabled="logInForm.$invalid">OK</button>
+        <button class="btn btn-warning" type="button"  ng-click="cancel();">Cancel</button>
+    </div>
+    <div class="modal-body" ng-show="logIn.isLoggin">
+        <form  role="form" name="logInForm">
+            <h5 ng-cloak>登录成功 {{time}}秒后返回..</h5>
+        </form>
+    <div class="modal-footer" ng-show="logIn.isLoggin">
+    </div>
+</div>

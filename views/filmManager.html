@@ -1,0 +1,77 @@
+<div ng-controller="FilmManagerCtrl" class="container rows">
+	
+		<div class="col-md-8">
+			<h3>电影后台管理 <small ng-if="movie.movieRepaet">电影更新</small><small ng-if="
+			!movie.movieRepaet">新增电影</small> </h3>
+			<form class="form-horizontal" role="form" name="fileForm">
+				<fieldset>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="title">电影名称</label>
+						<div class="controls col-sm-5">
+							<input type="text" class="form-control" id="title" name="title" placeholder="更新或增加的电影名称" required data-repeat-type="movie" data-is-repeat='/api/movies/:theparam' ng-model="movie.name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="doctor">导演</label>
+						<div class="controls col-sm-5">
+							<input type="text" class="form-control" id="doctor" name="doctor" placeholder="导游名称" required ng-model="movie.doctor">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="language">语言</label>
+						<div class="controls col-sm-5">
+							<input type="text" class="form-control" id="language" name="language" placeholder="电影语言" required ng-model="movie.language">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="country">地区</label>
+						<div class="controls col-sm-5">
+							<input type="text" class="form-control" id="country" name="country" placeholder="电影所在地区" required ng-model="movie.country">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="summary">概要</label>
+						<div class="controls col-sm-5">
+							<input type="text" class="form-control" id="summary" name="summary" placeholder="导游概要" required ng-model="movie.summary">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="poster">海报地址</label>
+						<div class="controls col-sm-5">
+							<input type="text" class="form-control" id="poster" name="poster" placeholder="海报地址" required ng-model="movie.poster">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="source">观看地址</label>
+						<div class="controls col-sm-5">
+							<input type="text" class="form-control" id="source" name="source" placeholder="电影地址" required ng-model="movie.source">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="year">年份</label>
+						<div class="controls col-sm-5">
+							<input type="number" class="form-control" id="year" name="year" placeholder="电影年份" required ng-model="movie.year" >
+						</div>
+					</div>
+					<div class="form-actions col-sm-offset-2 col-sm-5">
+						<button type="submit" class="btn btn-primary" ng-click="postMovieData();" ng-disabled="fileForm.$invalid">Submit</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<div class="col-md-4" ng-show="movie.poster && movie.showMore">
+		    <div class="row">
+				<div class="col-md-12" ng-cloak>
+					<a  class="thumbnail">
+						<img ng-src="{{movie.poster}}" style="height: 180px; width: 100%; display: block;" alt="">
+					</a>
+					<div class="caption">
+						<h3>{{movie.name}}</h3>
+						<p>Bootstrap框架是一个优秀的前端框，就算您是一位后端程序员或者你是一位不懂设计的前端人员，你也能依赖于Bootstrap制作做优美的网站...</p>
+					</div>  
+				</div>
+			</div>
+		</div>	
+		<div class="clearfix"></div>
+	
+</div>

@@ -1,0 +1,16 @@
+	<div class="navbar navbar-default navbar-inverse" role="navigation" ng-controller="logInCtrl">
+		　<div class="navbar-header">
+			　    <a href="#/Welcome/index" class="navbar-brand">我的博客</a>
+		　</div>
+		<ul class="nav navbar-nav" >
+			<li><a href="#/Welcome/index">网站首页</a></li>
+			<li><a  ng-click="open();" ng-hide="rootCtrlScope.username">登录</a></li>
+			<li><a href="#/Welcome/Reg" ng-hide="rootCtrlScope.username">注册</a></li>
+			<li><a href="" ng-show="rootCtrlScope.username" ng-click="logout();">Logout</a></li>
+			<li><a href="#/Welcome/FilmList">电影专栏</a></li>
+			<li><a href="#/Welcome/FilmManager">电影管理</a></li>
+			<li><a href="" ng-if="rootCtrlScope.username" ng-cloak>{{ rootCtrlScope.username }}<span class="label label-success">在线</span></a></li>
+		</ul>
+
+	</div>	
+	<div ui-view="middle"></div>
