@@ -9,14 +9,22 @@ var app = angular.module('myApp', [
 	'ngCookies'
 ]);
 
-app.config(function($stateProvider, $urlRouterProvider){
+app.constant('ACCESS_LEVELS', {
+	tourist: 0,
+	user: 1,
+	admin: 10
+})
+
+app.config(function($stateProvider, $urlRouterProvider, ACCESS_LEVELS, $locationProvider){
+	$locationProvider.html5Mode(false);
 	$urlRouterProvider.otherwise('/Welcome/index');
 	$stateProvider
 		.state('Welcome', {
 			url: '/Welcome',
 			views: {
 				'main': {
-					templateUrl: function(){return "/views/middle.html"}
+					templateUrl: function(){return "/views/middle.html"},
+					access_level: ACCESS_LEVELS.tourist
 				}
 			}
 		})
@@ -24,7 +32,8 @@ app.config(function($stateProvider, $urlRouterProvider){
 			url: '/WatchMovie',
 			views: {
 				'main': {
-					templateUrl: function(){return "/views/middle.html"}
+					templateUrl: function(){return "/views/middle.html"},
+					access_level: ACCESS_LEVELS.tourist
 				}
 			}
 		})	
@@ -32,7 +41,8 @@ app.config(function($stateProvider, $urlRouterProvider){
 			url: '/MovieUpdate',
 			views: {
 				'main': {
-					templateUrl: function(){return "/views/middle.html"}
+					templateUrl: function(){return "/views/middle.html"},
+					access_level: ACCESS_LEVELS.tourist
 				}
 			}
 		})	
@@ -40,7 +50,8 @@ app.config(function($stateProvider, $urlRouterProvider){
 			url: '/index',
 			views: {
 				'middle': {
-					templateUrl: function(){return "/views/index.html"}
+					templateUrl: function(){return "/views/index.html"},
+					access_level: ACCESS_LEVELS.tourist
 				}
 			}
 		})
@@ -48,7 +59,8 @@ app.config(function($stateProvider, $urlRouterProvider){
 			url: '/Reg',
 			views: {
 				'middle': {
-					templateUrl: function(){return "/views/reg.html"}
+					templateUrl: function(){return "/views/reg.html"},
+					access_level: ACCESS_LEVELS.tourist
 				}
 			}
 		})
@@ -56,7 +68,8 @@ app.config(function($stateProvider, $urlRouterProvider){
 			url: '/FilmList',
 			views: {
 				'middle': {
-					templateUrl: function(){return "/views/filmList.html"}
+					templateUrl: function(){return "/views/filmList.html"},
+					access_level: ACCESS_LEVELS.tourist
 				}
 			}
 		})
@@ -64,7 +77,8 @@ app.config(function($stateProvider, $urlRouterProvider){
 			url: '/FilmManager',
 			views: {
 				'middle': {
-					templateUrl: function(){return "/views/filmManager.html"}
+					templateUrl: function(){return "/views/filmManager.html"},
+					access_level: ACCESS_LEVELS.user
 				}
 			}
 		})
@@ -72,14 +86,15 @@ app.config(function($stateProvider, $urlRouterProvider){
 			url: '/:movieTitle',
 			views: {
 				'middle': {
-					templateUrl: function(){return "/views/watchMovie.html"}
+					templateUrl: function(){return "/views/watchMovie.html"},
+					access_level: ACCESS_LEVELS.tourist
 				}
 			}
 		})
 
 })
 
-app.run(function($rootScope,filmStorage,Auth){
+app.run(function($rootScope,filmStorage,Auth,$location){
 	//全局对象
 	$rootScope.rootCtrlScope = {};
 	$rootScope.rootCtrlScope.username = null;
@@ -94,6 +109,28 @@ app.run(function($rootScope,filmStorage,Auth){
 		console.log('未登录')
 		$rootScope.rootCtrlScope.username = null;
 	}
+	//-------路由监听--------
+	$rootScope.$on('$stateChangeStart', function(eve, next, curr){
+		var nextAuth = next.views.middle.access_level;
+		if(Auth.isLoggedIn()){
+			console.log('当前用户等级：' + Auth.getUserRole() + "当前路由等级：" + nextAuth)
+		}else{
+			console.log('当前用户等级：' + '还没有登录' + "当前路由等级：" + nextAuth)
+		}
+			if(!Auth.isAuthorized(nextAuth)){
+				//没有访问权限
+				console.log('没有访问权限')
+				if(Auth.isLoggedIn()){
+					$location.path('/');
+				}else{
+					//如果没有登录
+					$location.path('/')
+				}
+			}
+		
+		
+	
+	})
 
 })
 

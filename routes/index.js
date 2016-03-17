@@ -53,7 +53,17 @@ exports.addNewUser = function(req, res){
 				return res.send({status: 'Fail', err: err})
 			}else if(err === null || err === undefined){
 				console.log('Save!');
-				return res.send({status: 'Save'})
+				console.log(req.body['name'])
+				UserModel.findByName(req.body['name'], function(err, user){
+					if(!user){
+						return res.send('找不到该用户')
+					}else{
+						console.log('正在从服务器返回role...');
+						return res.send({status: 'Save', role: user[0].role})
+					}
+				})
+				//返回一个role代码
+				
 			}
 	})
 }

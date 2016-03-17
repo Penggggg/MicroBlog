@@ -10,6 +10,7 @@
 			<li><a href="#/Welcome/FilmList">电影专栏</a></li>
 			<li><a href="#/Welcome/FilmManager">电影管理</a></li>
 			<li><a href="" ng-if="rootCtrlScope.username" ng-cloak>{{ rootCtrlScope.username }}<span class="label label-success">在线</span></a></li>
+			<li><a  ng-click="open();" ng-if="!rootCtrlScope.username" ng-cloak><span class="label label-success">未登录</span></a></li>
 		</ul>
 
 	</div>	

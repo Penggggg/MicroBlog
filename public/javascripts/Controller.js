@@ -327,7 +327,7 @@ appController.controller('logInCtrl', ['$scope','$resource', '$uibModal', 'Auth'
 	}
 }])
 
-appController.controller('ModalLogIn', ['$scope', '$uibModalInstance', '$resource', 'Auth','$q','$timeout','$interval','$rootScope',function($scope,$uibModalInstance,$resource,Auth,$q,$timeout,$interval,$rootScope){
+appController.controller('ModalLogIn', ['$scope', '$uibModalInstance', '$resource', 'Auth','$q','$timeout','$interval','$rootScope','$location',function($scope,$uibModalInstance,$resource,Auth,$q,$timeout,$interval,$rootScope,$location){
 	$scope.logIn = {};
 	$scope.logIn.Title = "Welcome";
 	$scope.logIn.smallTitle = "登录";
@@ -369,10 +369,13 @@ appController.controller('ModalLogIn', ['$scope', '$uibModalInstance', '$resourc
 						},1000)
 						$timeout(function(){
 							$uibModalInstance.close();
+							//转到首页
+							$location.path('/')
 						}, 3000)
 					}, function(err){
 						console.log(err)
 					})
+					console.log(data)
 					Auth.setUser(data.user[0], deferred);
 				}
 			}else{

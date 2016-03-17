@@ -78,17 +78,20 @@ appServer.factory('eventEmmiter', ['$rootScope','$timeout', function($rootScope,
 }])
 
 appServer.factory('Auth', ['$window', function($window){
-	var _user;
+	var _user = {};
+	_user.role = 0;
 	var setUser = function(user, deferred){
+		//已赋值role
 		_user = user;
 		var Days = 1;
 		var exp = new Date();
 		exp.setTime(exp.getTime() + Days*0.5*60*60*1000);//半小时
 		document.cookie = "name=" + user.name + ";expires=" + exp.toGMTString();
+		document.cookie = "role=" + user.role + ";expires=" + exp.toGMTString();
 		deferred.resolve('cookies登录成功！')
 	}
 	var getUser = function(){
-		var name = document.cookie.split('=')[1];
+		var name = document.cookie.split(';')[0].split('=')[1];
 		return name
 	}
 	var logOut = function(){
@@ -96,9 +99,19 @@ appServer.factory('Auth', ['$window', function($window){
 		var date=new Date(); 
     	date.setTime(date.getTime()-10000); 
     	document.cookie="name=" + name + ";expires="+ date.toGMTString();
+    	document.cookie="role=" + name + ";expires="+ date.toGMTString();
     	console.log('Cookies退出成功')
 	}
+	var isAuthorized = function(lvl){
+		return _user.role >= lvl;
+	}
+	var getUserRole = function(){
+		return document.cookie.split(';')[1].split('=')[1];
+	}
 	return {
+		isAuthorized: function(lvl){
+			return isAuthorized(lvl)
+		},
 		setUser: function(user, deferred){
 			return setUser(user, deferred);
 		},
@@ -110,6 +123,9 @@ appServer.factory('Auth', ['$window', function($window){
 		},
 		isLoggedIn: function(){
 			return getUser() ? true : false
+		},
+		getUserRole: function(){
+			return getUserRole();
 		}
 	}
 }])
