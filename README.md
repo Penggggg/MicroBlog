@@ -8,3 +8,4 @@ v 0.0.1--MicroBlog has these abilities as follows at present:
          ui(bootstrap);
          CRUD(RESTful: AngularJS $resource + node API);
          more abilities are coming...
+v 0.0.2--added a Routing privilege management
